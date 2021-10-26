@@ -26,12 +26,12 @@ async function run() {
             res.json(services);
         })
         //GET Single service 
-        app.get('/service/:id', async (req, res) => {
+        app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: objectId(id) };
             const service = await servicesCollection.findOne(query);
             res.json(service);
-        })
+        });
         //POST API
         app.post('/services', async (req, res) => {
             const service = req.body;
@@ -39,6 +39,15 @@ async function run() {
             const result = await servicesCollection.insertOne(service);
             console.log('your inserseted id is ', result.insertedId);
             res.json(result)
+        });
+
+        //Delete api
+        app.delete('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const service = { _id: objectId(id) };
+
+            const result = await servicesCollection.deleteOne(service);
+            res.send(result);
         })
 
     } finally {
