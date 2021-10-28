@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+const port = process.env.PORT || 5000;
 const uri = `mongodb+srv://${process.env.DB_MECHANIC}:${process.env.DB_PASSWORD}@cluster0.lt029.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -55,7 +56,7 @@ async function run() {
     }
 }
 run().catch(console.dir)
-const port = 5000;
+
 app.get('/', (req, res) => {
     res.send('site is deploying ');
 });
